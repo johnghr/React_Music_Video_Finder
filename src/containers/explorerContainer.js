@@ -11,12 +11,15 @@ const ExplorerContainer = () => {
     }, []);
 
     const getArtists = function() {
-        fetch('https://tastedive.com/api/similar?q=red+hot+chili+peppers')
+        fetch('https://tastedive.com/api/similar?q=red+hot+chili+peppers&k=413338-musicvid-TBPO1GFE')
         .then(res => res.json())
         .then(artists => setArtists(artists['Similar']['Results']))
 
     }
 
+    const onArtistSubmitted = function(){
+
+    }
 
     return(
         <div>
