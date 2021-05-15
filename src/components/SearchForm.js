@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const SearchForm = (onSearchSubmit) => {
+const SearchForm = ({onSearchSubmit}) => {
 
     const [query, setQuery] = useState("");
 
@@ -10,19 +10,19 @@ const SearchForm = (onSearchSubmit) => {
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        const queryToSubmit = query.trim().replace(" ", "+");
+        const queryToSubmit = query.split(" ").join("+");
+
         if (!queryToSubmit){
             return
         }
 
-        onSearchSubmit({
-            query: queryToSubmit
-        })
+        onSearchSubmit(queryToSubmit);
 
         setQuery("");
     }
 
     return (
+        
         <form onSubmit={handleFormSubmit}>
             <input 
                 type="text"

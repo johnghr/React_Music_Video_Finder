@@ -11,17 +11,18 @@ const ExplorerContainer = () => {
         getArtists();
     }, []);
 
-    const getArtists = function(query) {
-        fetch(`https://tastedive.com/api/similar?q=`+ {query} +`k=413338-musicvid-TBPO1GFE`)
+    const getArtists = function(queryToSubmit) {
+        console.log(queryToSubmit)
+        fetch(`https://tastedive.com/api/similar?q=${queryToSubmit}&k=413338-musicvid-TBPO1GFE`)
         .then(res => res.json())
-        .then(artists => setArtists(artists['Similar']['Results']))
+        .then(artists => {setArtists(artists['Similar']['Results'])})
 
     }
 
     return(
         <div>
             <h1>Similiar Artists</h1>
-            <SearchForm onSearchSubmit={(query) => getArtists(query)}/>
+            <SearchForm onSearchSubmit={(queryToSubmit) => getArtists(queryToSubmit)}/>
             <ArtistList artists={artists}/>
         </div>
     )
