@@ -2,19 +2,24 @@ import React, {useState} from 'react';
 
 const SearchForm = (onSearchSubmit) => {
 
-    const [submittedArtist, setSubmittedArtist] = useState("");
+    const [query, setQuery] = useState("");
 
-    const handleArtistChange = (event) => {
-        setSubmittedArtist(event.target.value)
+    const handleQueryChange = (event) => {
+        setQuery(event.target.value)
     }
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        const artistToSubmit = (submittedArtist) => {
-            return submittedArtist.trim().replace(" ", "+");
+        const queryToSubmit = query.trim().replace(" ", "+");
+        if (!queryToSubmit){
+            return
         }
 
-        onArtistSubmit({artistToSubmit})
+        onSearchSubmit({
+            query: queryToSubmit
+        })
+
+        setQuery("");
     }
 
     return (
@@ -22,8 +27,12 @@ const SearchForm = (onSearchSubmit) => {
             <input 
                 type="text"
                 placeholder="Search artist"
-                value={artistToSubmit}
-                onChange={handleArtistChange}
+                value={query}
+                onChange={handleQueryChange}
+            />
+            <input 
+                type="submit" 
+                value="Submit artist"    
             />
         </form>
     )
