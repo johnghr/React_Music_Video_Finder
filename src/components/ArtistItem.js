@@ -7,7 +7,7 @@ const ArtistItem = ({artist, onArtistClick}) => {
     }
 
     return (
-        <li onClick={handleClick}>{artist.Name}</li>
+        <li className="artist-list-item" onClick={handleClick}>{artist.Name}</li>
     )
 
 }

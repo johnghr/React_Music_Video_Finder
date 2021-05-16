@@ -9,7 +9,7 @@ const VideoDisplay = ({artistVideos}) => {
 
     return(
         <div>
-            <ul>
+            <ul className="video-list">
                 {videoItems}
             </ul>
         </div>

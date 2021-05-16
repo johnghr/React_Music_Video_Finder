@@ -40,3 +40,4 @@ const SearchForm = ({onSearchSubmit}) => {
 }
 
 export default SearchForm;
+
