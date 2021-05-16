@@ -1,9 +1,13 @@
 import React from 'react';
 
-const ArtistItem = ({artist}) => {
+const ArtistItem = ({artist, onArtistClick}) => {
+
+    const handleClick = function(){
+        onArtistClick(artist);
+    }
 
     return (
-        <li>{artist.Name}</li>
+        <li onClick={handleClick}>{artist.Name}</li>
     )
 
 }

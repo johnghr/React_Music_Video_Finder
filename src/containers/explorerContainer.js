@@ -2,28 +2,57 @@ import React, {useState, useEffect} from 'react';
 import ArtistList from '../components/ArtistList';
 import ArtistItem from '../components/ArtistItem';
 import SearchForm from '../components/SearchForm';
+import VideoDisplay from '../components/VideoDisplay'
 
 const ExplorerContainer = () => {
 
     const [artists, setArtists] = useState([]);
+    const [artistId, setArtistId] = useState("")
+    const [artistVideos, ]
 
     useEffect(() => {
         getArtists();
     }, []);
 
     const getArtists = function(queryToSubmit) {
-        console.log(queryToSubmit)
         fetch(`https://tastedive.com/api/similar?q=${queryToSubmit}&k=413338-musicvid-TBPO1GFE`)
         .then(res => res.json())
         .then(artists => {setArtists(artists['Similar']['Results'])})
 
     }
 
+    const onArtistClick = function(artist) {
+        const formattedArtistName = artist.Name.split(" ").join("_").toLowerCase()
+        getArtistId(formattedArtistName)    
+    }
+
+    const getArtistId = function(artistName){
+        fetch(`https://theaudiodb.com/api/v1/json/1/search.php?s=${artistName}`)
+        .then(res => res.json())
+        .then(responseJson => {
+            if(responseJson.artists === null){
+                alert("no artists were found")
+            } else {
+               setArtistId(responseJson.artists[0].idArtist)
+               getArtistVideos(responseJson.artists[0].idArtist) 
+            } 
+        });
+    }
+    
+    const getArtistVideos = function(artistId){
+        fetch(`https://theaudiodb.com/api/v1/json/1/mvid.php?i=${artistId}`)
+        .then(res => res.json())
+        .then(responseJson => {
+    
+        })
+    }
+
     return(
         <div>
             <h1>Similiar Artists</h1>
             <SearchForm onSearchSubmit={(queryToSubmit) => getArtists(queryToSubmit)}/>
-            <ArtistList artists={artists}/>
+            <ArtistList artists={artists} onArtistClick={onArtistClick}/>
+            
         </div>
     )
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import ArtistItem from './ArtistItem'
 
-const ArtistList = ({artists}) => {
+const ArtistList = ({artists, onArtistClick}) => {
 
     const artistItems = artists.map((artist, index) => {
-        return <ArtistItem artist={artist} key={index}/>
+        return <ArtistItem artist={artist} key={index} onArtistClick={onArtistClick}/>
     })
 
     return (
