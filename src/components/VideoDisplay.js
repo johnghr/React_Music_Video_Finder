@@ -1,10 +1,17 @@
 import React from 'react';
+import VideoItem from './VideoItem'
 
-const VideoDisplay = ({artist}) => {
+const VideoDisplay = ({artistVideos}) => {
+
+    const videoItems = artistVideos.map((video, index) => {
+        return <VideoItem video={video} key={index}/>
+    })
 
     return(
         <div>
-            <h3>{artist.Name}</h3>
+            <ul>
+                {videoItems}
+            </ul>
         </div>
     )
 

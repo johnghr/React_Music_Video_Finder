@@ -8,7 +8,7 @@ const ExplorerContainer = () => {
 
     const [artists, setArtists] = useState([]);
     const [artistId, setArtistId] = useState("")
-    const [artistVideos, ]
+    const [artistVideos, setArtistVideos] = useState([]);
 
     useEffect(() => {
         getArtists();
@@ -43,7 +43,11 @@ const ExplorerContainer = () => {
         fetch(`https://theaudiodb.com/api/v1/json/1/mvid.php?i=${artistId}`)
         .then(res => res.json())
         .then(responseJson => {
-    
+            if(responseJson.mvids === null){
+                alert("no videos were found")
+            } else {
+                setArtistVideos(responseJson.mvids)
+            }
         })
     }
 
@@ -52,6 +56,7 @@ const ExplorerContainer = () => {
             <h1>Similiar Artists</h1>
             <SearchForm onSearchSubmit={(queryToSubmit) => getArtists(queryToSubmit)}/>
             <ArtistList artists={artists} onArtistClick={onArtistClick}/>
+            <VideoDisplay artistVideos={artistVideos}/>
             
         </div>
     )
